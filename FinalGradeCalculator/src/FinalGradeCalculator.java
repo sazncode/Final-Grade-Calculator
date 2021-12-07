@@ -1,3 +1,9 @@
+/*
+ * Created by: Prem Patel
+ * Purpose: Calculates the final weighted grade in a class. 
+ * 			If the final has not been taken, the program will output the lowest score a student can score on a final to earn their desired grade as a final grade.
+ * 			If the final was taken, the program calculates the final grade of the course.
+ */
 import java.util.Scanner;
 
 public class FinalGradeCalculator {
@@ -5,7 +11,7 @@ public class FinalGradeCalculator {
 		// Initialize Scanner and Variables
 		Scanner input = new Scanner(System.in);
 		double weight = 0, possiblePoints = 0, earnedPoints;
-		double grade = 0.0;
+		double grade = 0.0, desired, diff;
 		boolean predict = true;
 		
 		// Prompt user for number of categories (example: Assignments, Homework, Exam 1, Exam 2)
@@ -15,8 +21,7 @@ public class FinalGradeCalculator {
 		
 		// Run a for-loop and ask user to input values necessary for calculations
 		for (int i = 0; i < cat.length; i++) {
-			System.out.printf("%nEnter the weight of Category %d, in terms of %c of grade: ",
-													 i + 1, '%');
+			System.out.printf("%nEnter the weight of Category %d, in terms of %c of grade: ", i + 1, '%');
 			weight = input.nextDouble();
 			
 			System.out.printf("Enter the maximum amount of available points in Category %d: ", i + 1);
@@ -29,20 +34,22 @@ public class FinalGradeCalculator {
 			cat[i] = new Category(weight, possiblePoints, earnedPoints);
 			grade += (cat[i].getGrade() * cat[i].getWeight()) * 100.0;
 			
+			// Prompt user if the next category is the final exam
 			System.out.println();
 			System.out.print("Is the next (& last) category the final exam? (y/n): ");
 			
 			if (input.next().charAt(0) == 'y') {
+				// Prompt user for weight and maximum points
 				System.out.printf("%nEnter the weight of your final exam: ");
 				weight = input.nextDouble() / 100.0;
 				
 				System.out.printf("%nEnter the maximum amount of available points: ");
 				possiblePoints = input.nextDouble();	
-				
+				// Prompt user if they wish to calculate their final grade or determine the lowest possible score on the final to end with a desired grade
 				System.out.printf("%nHave you taken the final yet? (y/n): ");
 				
 				if (input.next().charAt(0) == 'y') {
-					
+					// Continue as normal if the final has already been taken
 					System.out.printf("%nEnter the amount of points you've scored: ");
 					earnedPoints = input.nextDouble();
 					
@@ -52,41 +59,49 @@ public class FinalGradeCalculator {
 					
 					predict = false;
 				}
-				
+				// Break out of the loop if the final is the last category
 				break;
 			}
 		}
-	
+		// Invoke a method that prints the weight and grade in every category 
 		printReport(cat);
-		System.out.println("Grade: " + grade);
+		
+		// Display the current grade (if the final was not taken, this would be the grade if a final was never taken (or a zero was scored).
+		if (predict) {
+			System.out.printf("Your current grade if you didn't take the final (or got a zero) is: %.1f", grade);
+		} else {
+			System.out.printf("Your final grade is: %.1f", grade);
+		}
 		
 		while (predict) {
+			// Prompt user for desired grade
 			System.out.printf("%nWhat is your desired final grade?: ");
-			double desired = input.nextDouble();
+			desired = input.nextDouble();
+			// Calculate the difference
+			diff = desired - grade;
 			
-			double remainder = desired - grade;
-			
-			if (remainder > 0) {
+			if (diff > 0) {
 				System.out.printf("You need %.2f points to reach your desired grade of %.1f.%nThis is equivilant to a score of %.2f%c.", 
-						remainder, desired, remainder / weight, '%');
+											diff, desired, diff / weight, '%');
 			} else {
 				System.out.printf("CONGRATULATIONS!%nBased on your input, even if you got the "
 						+ "lowest score imaginable, you've already earned enough points for your final desired grade of %.1f.", desired);
 			}
 			
-			
+			// Prompt user if they desire to test another possible final desired grade
 			System.out.printf("%n%nWould you like to enter another desired grade? (y/n): ");
 			if (input.next().charAt(0) == 'n') {
 				predict = false;
 			}
 		}
-		
+		// Close Scanner
 		input.close();
 		
 	}
 	public static void printReport(Category[] array) {
-		for(int i = 0; i < array.length; i++) {
-			if(array[i] != null) {
+		// Print contents of Category array, break if a null is encountered anywhere
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] != null) {
 				System.out.printf("Category %d:\t%s%n", i + 1, array[i]);
 			} else {
 				break;
@@ -127,6 +142,7 @@ class Category {
 		return earnedPoints;
 	}
 	public void setEarnedPoints(double earnedPoints) {
+		// Error checking, earned points cannot exceed maximum possible points
 		if (getPossiblePoints() >= earnedPoints) {
 			this.earnedPoints = earnedPoints;
 		}
