@@ -71,7 +71,7 @@ public class FinalGradeCalculator {
 						throw new UnsupportedInputException(totalWeight, "total weight exceeded 100%.");
 					}
 					
-					weight = weight / 100.0;
+					//weight = weight / 100.0;
 					System.out.printf("%nEnter the maximum amount of available points: ");
 					possiblePoints = input.nextDouble();	
 					// Prompt user if they wish to calculate their final grade or determine the lowest possible score on the final to end with a desired grade
@@ -86,9 +86,11 @@ public class FinalGradeCalculator {
 						} 
 						// Initialize a Category and retrieve the current final grade (so far)
 						cat[i] = new Category(weight, possiblePoints, earnedPoints);
-						grade += cat[i].getGrade() / cat[i].getWeight();
+						grade += (cat[i].getGrade() * cat[i].getWeight()) * 100.0;
 						
 						predict = false;
+					} else {
+						weight = weight / 100;
 					}
 					// Break out of the loop if the final is the last category
 					break;
@@ -136,7 +138,7 @@ public class FinalGradeCalculator {
 	}
 	public static void printReport(Category[] array) {
 		// Print contents of Category array, break if a null is encountered anywhere
-		for (int i = 0; i < array.length; i++) {
+		for (int i = 0; i <= array.length; i++) {
 			if (array[i] != null) {
 				System.out.printf("Category %d:\t%s%n", i + 1, array[i]);
 			} else {
