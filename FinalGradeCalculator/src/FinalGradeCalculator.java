@@ -85,8 +85,8 @@ public class FinalGradeCalculator {
 							throw new UnsupportedInputException(earnedPoints, "earned points outweigh maximum possible points.");
 						} 
 						// Initialize a Category and retrieve the current final grade (so far)
-						cat[i] = new Category(weight, possiblePoints, earnedPoints);
-						grade += (cat[i].getGrade() * cat[i].getWeight()) * 100.0;
+						cat[i + 1] = new Category(weight, possiblePoints, earnedPoints);
+						grade += (cat[i + 1].getGrade() * cat[i + 1].getWeight()) * 100.0;
 						
 						predict = false;
 					} else {
@@ -130,7 +130,7 @@ public class FinalGradeCalculator {
 		} catch (UnsupportedInputException e) {
 			System.out.print(e.getMessage());
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		// Close Scanner
 		input.close();
@@ -138,7 +138,7 @@ public class FinalGradeCalculator {
 	}
 	public static void printReport(Category[] array) {
 		// Print contents of Category array, break if a null is encountered anywhere
-		for (int i = 0; i <= array.length; i++) {
+		for (int i = 0; i < array.length; i++) {
 			if (array[i] != null) {
 				System.out.printf("Category %d:\t%s%n", i + 1, array[i]);
 			} else {
