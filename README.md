@@ -6,13 +6,13 @@ The program prompts for the number of cateogries, the weight of the categories, 
 
 # Example Output:
 Example #1 (desired grade output):
-![Example Image](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/desired%20grade%20calculation.jpg)
+![Example Imagea](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/desired%20grade%20calculation.jpg)
 
 Example #2 (Input Example #1):
-![Example Image](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/Values.jpg)
+![Example Imagev](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/Values.jpg)
 
 Example #3 (Input Example #2):
-![Example Image](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/Alternative%20Values.jpg)
+![Example Imagec](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/Alternative%20Values.jpg)
 
 Example #4 (Final Grade output):
-![Example Image](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/final%20grade%20calculation.jpg)
+![Example Imaged](https://github.com/sazncode/Final-Grade-Calculator/blob/main/Input-Output-Examples/final%20grade%20calculation.jpg)
