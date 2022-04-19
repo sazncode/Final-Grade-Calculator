@@ -90,6 +90,7 @@ public class FinalGradeCalculator {
 						
 						predict = false;
 					} else {
+						cat[i + 1] = new Category(weight);
 						weight = weight / 100;
 					}
 					// Break out of the loop if the final is the last category
@@ -160,6 +161,9 @@ class Category {
 		setPossiblePoints(possiblePoints);
 		setEarnedPoints(earnedPoints);
 		setGrade(getEarnedPoints() / getPossiblePoints());
+	}
+	public Category (double weight) {
+		setWeight(weight);
 	}
 	
 	public double getWeight() {
